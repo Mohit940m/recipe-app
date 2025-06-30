@@ -1,4 +1,3 @@
-
 const router = require('express').Router();
 const auth = require('../middleware/auth');
 const Recipe = require('../models/recipe.model');
@@ -12,29 +11,28 @@ router.route('/generate').post(auth, async (req, res) => {
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest"});
 
-    const prompt = `You are a smart recipe assistant. I have the following ingredients: ${ingredients.join(', ')}.
-    Suggest 2 delicious and practical recipes I can make using them. 
-    For each recipe, include:
-    1. A "recipeTitle" string.
-    2. An "estimatedPreparationTime" string.
-    3. A "stepByStepInstructions" string.
-    4. A "requiredIngredients" array of strings.
-    5. An optional "funCookingTip" string.
-    
-    Respond with a single JSON array containing the two recipe objects. The entire response should be a single JSON code block. For example:
-    \`\`\`json
-    [
-      { "recipeTitle": "...", "estimatedPreparationTime": "...", ... },
-      { "recipeTitle": "...", "estimatedPreparationTime": "...", ... }
-    ]
-    \`\`\``;
+    const prompt = 'You are a smart recipe assistant. I have the following ingredients: ' + ingredients.join(', ') + '.\n' +
+    'Suggest 2 delicious and practical recipes I can make using them. \n' +
+    'For each recipe, include:\n' +
+    '1. A "recipeTitle" string.\n' +
+    '2. An "estimatedPreparationTime" string.\n' +
+    '3. A "stepByStepInstructions" string.\n' +
+    '4. A "requiredIngredients" array of strings.\n' +
+    '5. An optional "funCookingTip" string.\n' +
+    '\n' +
+    'Respond with a single JSON array containing the two recipe objects. The entire response should be a single JSON code block. For example:\n' +
+    '```json\n' +
+    '[\n' +
+    '  { "recipeTitle": "...", "estimatedPreparationTime": "...", ... },\n' +
+    '  { "recipeTitle": "...", "estimatedPreparationTime": "...", ... }\n' +
+    ']\n' +
+    '```';
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
     let text = await response.text();
 
     // Clean the response to reliably extract the JSON part.
-    // This handles cases where the AI includes markdown like ```json ... ```
     const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/);
     if (jsonMatch && jsonMatch[1]) {
       text = jsonMatch[1];
@@ -78,6 +76,18 @@ router.route('/').get(auth, async (req, res) => {
   try {
     const recipes = await Recipe.find({ createdBy: req.user });
     res.json(recipes);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.route('/:id').delete(auth, async (req, res) => {
+  try {
+    const recipe = await Recipe.findOneAndDelete({ _id: req.params.id, createdBy: req.user });
+    if (!recipe) {
+      return res.status(404).json({ error: 'Recipe not found' });
+    }
+    res.json({ message: 'Recipe deleted successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

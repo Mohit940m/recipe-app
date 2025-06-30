@@ -1,0 +1,89 @@
+.homepage {
+  text-align: center;
+}
+
+.hero-section {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  padding: 60px 20px;
+  border-radius: 8px;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.recipe-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.ingredient-input {
+  width: 50%;
+  padding: 15px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.generate-btn {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  transition: background-color 0.3s;
+}
+
+.generate-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.loading-indicator {
+  margin-top: 20px;
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.recipe-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: left;
+}
+
+.recipe-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.fun-tip {
+  font-style: italic;
+  color: #555;
+}
+
+.save-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.save-btn:hover {
+  background-color: #218838;
+}

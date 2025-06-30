@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import AuthService from '../services/auth.service';
+import './Auth.css';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -35,14 +36,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2>Sign Up</h2>
         <form onSubmit={handleRegister}>
           {!successful && (
             <div>
@@ -61,7 +57,7 @@ const RegisterPage = () => {
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
                   name="email"
                   value={email}
