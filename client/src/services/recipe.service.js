@@ -19,9 +19,14 @@ const deleteRecipe = (id) => {
   return axios.delete(`${API_URL}/${id}`, { headers: authHeader() });
 };
 
+const getRecipeById = (id) => {
+  return axios.get(`${API_URL}/${id}`, { headers: authHeader() });
+};
+
 export default {
   generateRecipe,
   saveRecipe,
   getSavedRecipes,
   deleteRecipe,
+  getRecipeById,
 };

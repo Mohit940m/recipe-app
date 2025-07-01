@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
+import CardPage from './pages/CardPage.jsx';
 
 const AppContent = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -28,7 +29,7 @@ const AppContent = () => {
   };
 
   return (
-    <div>
+    <div className="fullscreen">
       <Navbar currentUser={currentUser} logOut={logOut} />
       <div className="container mt-3">
         <Routes>
@@ -37,6 +38,7 @@ const AppContent = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/card/:id" element={<CardPage />} />
         </Routes>
       </div>
     </div>

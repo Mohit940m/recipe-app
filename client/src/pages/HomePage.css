@@ -7,6 +7,9 @@
   color: white;
   padding: 60px 20px;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-section h1 {
@@ -14,10 +17,43 @@
   margin-bottom: 20px;
 }
 
+.frequent-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.ingredient-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.18);
+  color: #222;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 18px;
+  padding: 7px 16px;
+  font-size: 1.08rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(31,38,135,0.08);
+  outline: none;
+}
+.ingredient-chip:hover, .ingredient-chip:focus {
+  background: rgba(255,255,255,0.32);
+  box-shadow: 0 4px 16px rgba(31,38,135,0.13);
+}
+
+.chip-icon {
+  font-size: 1.2em;
+}
+
 .recipe-form {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  gap: 0;
 }
 
 .ingredient-input {
@@ -26,6 +62,8 @@
   font-size: 1.2rem;
   border: none;
   border-radius: 4px 0 0 4px;
+  background-color: aliceblue;
+  min-width: 0;
 }
 
 .generate-btn {
@@ -86,4 +124,42 @@
 
 .save-btn:hover {
   background-color: #218838;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 32px 6px;
+  }
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+  .recipe-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .ingredient-input {
+    width: 100%;
+    border-radius: 4px;
+  }
+  .generate-btn {
+    border-radius: 4px;
+    width: 100%;
+  }
+  .recipes-grid {
+    grid-template-columns: 1fr;
+    padding: 8px;
+    gap: 14px;
+  }
+  .recipe-card {
+    padding: 14px;
+  }
+  .frequent-ingredients {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .ingredient-chip {
+    font-size: 0.98rem;
+    padding: 6px 10px;
+  }
 }

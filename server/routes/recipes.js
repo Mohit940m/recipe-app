@@ -2,14 +2,15 @@ const router = require('express').Router();
 const auth = require('../middleware/auth');
 const Recipe = require('../models/recipe.model');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
+const mongoose = require('mongoose');
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 router.route('/generate').post(auth, async (req, res) => {
   try {
     const { ingredients } = req.body;
-
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest"});
+    const modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+    const model = genAI.getGenerativeModel({ model: modelName });
 
     const prompt = 'You are a smart recipe assistant. I have the following ingredients: ' + ingredients.join(', ') + '.\n' +
     'Suggest 2 delicious and practical recipes I can make using them. \n' +
@@ -81,16 +82,33 @@ router.route('/').get(auth, async (req, res) => {
   }
 });
 
-router.route('/:id').delete(auth, async (req, res) => {
-  try {
-    const recipe = await Recipe.findOneAndDelete({ _id: req.params.id, createdBy: req.user });
-    if (!recipe) {
-      return res.status(404).json({ error: 'Recipe not found' });
+router.route('/:id')
+  .get(async (req, res) => {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).json({ msg: 'Invalid recipe ID format.' });
+      }
+
+      const recipe = await Recipe.findById(req.params.id);
+      if (!recipe) {
+        return res.status(404).json({ msg: 'Recipe not found.' });
+      }
+      res.json(recipe);
+    } catch (err) {
+      console.error('Error fetching recipe by ID:', err);
+      res.status(500).json({ error: err.message });
     }
-    res.json({ message: 'Recipe deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+  })
+  .delete(auth, async (req, res) => {
+    try {
+      const recipe = await Recipe.findOneAndDelete({ _id: req.params.id, createdBy: req.user });
+      if (!recipe) {
+        return res.status(404).json({ error: 'Recipe not found' });
+      }
+      res.json({ message: 'Recipe deleted successfully' });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
 
 module.exports = router;

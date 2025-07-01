@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import RecipeService from '../services/recipe.service';
+import Card from '../components/Card';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
   const [recipes, setRecipes] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch user's saved recipes on mount
@@ -21,6 +24,7 @@ const ProfilePage = () => {
     RecipeService.deleteRecipe(id).then(
       () => {
         setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe._id !== id));
+        if (activeCard === id) setActiveCard(null);
       },
       (error) => {
         console.log(error);
@@ -32,21 +36,15 @@ const ProfilePage = () => {
     <div className="profile-container">
       <h3>My Saved Recipes</h3>
       {recipes.length > 0 ? (
-        <div className="recipes-grid">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-start">
           {recipes.map((recipe) => (
-            <div className="recipe-card" key={recipe._id}>
-              <h5>{recipe.title}</h5>
-              <p><strong>Preparation Time:</strong> {recipe.preparationTime} minutes</p>
-              <h6>Instructions</h6>
-              <p>{recipe.instructions}</p>
-              <h6>Ingredients</h6>
-              <ul>
-                {recipe.ingredients.map((ingredient, i) => (
-                  <li key={i}>{ingredient}</li>
-                ))}
-              </ul>
-              <button onClick={() => handleDelete(recipe._id)} className="btn btn-danger">Delete</button>
-            </div>
+            <Card
+              key={recipe._id}
+              recipe={recipe}
+              onClick={() => navigate(`/card/${recipe._id}`)}
+              showDetails={false}
+              onDelete={id => handleDelete(id)}
+            />
           ))}
         </div>
       ) : (

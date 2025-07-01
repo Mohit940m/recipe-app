@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../services/auth.service';
 import './Auth.css';
+import logo from '../assets/Recipe_app.svg';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -37,8 +38,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
+    <div className="auth-container glass">
+      <div className="auth-card glass">
+        <div className="flex justify-center mb-4">
+          <img src={logo} alt="Recipe App Logo" className=" max-w-20" />
+        </div>
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <div className="form-group">
@@ -62,11 +66,12 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="current-password"
             />
           </div>
 
           <div className="form-group">
-            <button className="btn btn-primary btn-block" disabled={loading}>
+            <button className="btn btn-primary btn-block glass" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}

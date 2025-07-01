@@ -1,3 +1,4 @@
+@import "tailwindcss";
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,6 +17,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color-scheme: light dark;
+
+  
 }
 
 a {
@@ -101,6 +104,7 @@ button:hover::before {
   opacity: 0.6;
 }
 
+
 button:focus,
 button:focus-visible {
   outline: 4px auto var(--purple-light);
@@ -122,4 +126,12 @@ button:focus-visible {
   button {
     color: #f9f9f9;
   }
+}
+
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* optional: prevent horizontal scroll */
 }

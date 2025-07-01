@@ -1,3 +1,4 @@
+@import "tailwindcss";
 .card-container.card {
   max-width: 350px !important;
   padding: 40px 40px;
@@ -40,4 +41,22 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+/* Glassmorphism utility class */
+.glass {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18), 0 1.5px 6px 0 rgba(31,38,135,0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* optional: prevent horizontal scroll */
 }

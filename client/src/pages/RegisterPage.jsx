@@ -36,8 +36,8 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
+    <div className="auth-container glass">
+      <div className="auth-card glass">
         <h2>Sign Up</h2>
         <form onSubmit={handleRegister}>
           {!successful && (
@@ -75,11 +75,12 @@ const RegisterPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  autoComplete="current-password"
                 />
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+                <button className="btn btn-primary btn-block glass">Sign Up</button>
               </div>
             </div>
           )}

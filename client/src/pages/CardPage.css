@@ -1,0 +1,52 @@
+.card-page-container {
+  padding: 20px;
+  position: relative;
+}
+
+.card-wrapper {
+  /* Remove blur from here */
+}
+
+.card-wrapper.blurred-bg {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.back-btn {
+  color: #1f2937;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  z-index: 10;
+  /* border-radius: 50%; */
+  transition: color 0.2s, box-shadow 0.2s;
+  outline: none;
+  position: static;
+}
+
+.back-btn:focus {
+  outline: 2px solid #1f2937;
+}
+
+/* Glow in the middle of the screen when back button is hovered */
+body.back-btn-glow::before {
+  content: '';
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 420px;
+  height: 420px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(31,41,55,0.18) 0%, rgba(31,41,55,0.09) 60%, transparent 100%);
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+body::before {
+  content: '';
+  display: none;
+}
