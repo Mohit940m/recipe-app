@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:5000/recipes';
+const API_URL = `${import.meta.env.VITE_API_URL}/recipes`;
 
 const generateRecipe = (ingredients) => {
   return axios.post(`${API_URL}/generate`, { ingredients }, { headers: authHeader() });

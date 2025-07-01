@@ -3,9 +3,9 @@
   position: relative;
 }
 
-.card-wrapper {
+/* .card-wrapper {
   /* Remove blur from here */
-}
+/* } */ 
 
 .card-wrapper.blurred-bg {
   filter: blur(6px);
