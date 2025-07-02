@@ -1,8 +1,14 @@
-
 import axios from 'axios';
 
-const API_URL = `${import.meta.env.VITE_API_URL}users/`; // Adjusted to use the environment variable
+// ✅ Ensure base URL has no trailing slash, then add /users/
+const API_URL = import.meta.env.VITE_API_URL.replace(/\/+$/, '') + '/users/';
 
+/**
+ * Register a new user
+ * @param {string} username 
+ * @param {string} email 
+ * @param {string} password 
+ */
 const register = (username, email, password) => {
   return axios.post(API_URL + 'register', {
     username,
@@ -11,6 +17,11 @@ const register = (username, email, password) => {
   });
 };
 
+/**
+ * Login user and store token
+ * @param {string} email 
+ * @param {string} password 
+ */
 const login = (email, password) => {
   return axios
     .post(API_URL + 'login', {
@@ -25,12 +36,19 @@ const login = (email, password) => {
     });
 };
 
+/**
+ * Logout user by removing from localStorage
+ */
 const logout = () => {
   localStorage.removeItem('user');
 };
 
+/**
+ * Get the currently logged in user from localStorage
+ */
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem('user'));
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
 };
 
 export default {
