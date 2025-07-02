@@ -15,12 +15,7 @@ const port = process.env.PORT || 5000;
 
 
 // CORS config
-const allowedOrigins = ['https://recipe-app-i61u.vercel.app'];
-
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true // if using cookies or auth headers
-}));
+app.use(cors());
 
 // Use MONGODB_URI for consistency
 const uri = process.env.MONGODB_URI || process.env.ATLAS_URI;
