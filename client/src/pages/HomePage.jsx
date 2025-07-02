@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import RecipeService from '../services/recipe.service';
+import AuthService from '../services/auth.service';
 import './HomePage.css';
 import { GiChickenOven, GiWheat, GiCheeseWedge, GiTomato, GiCarrot, GiFishCooked, GiMilkCarton } from 'react-icons/gi';
 import { FaEgg } from 'react-icons/fa';
@@ -12,6 +14,15 @@ const HomePage = () => {
   const [saveMessages, setSaveMessages] = useState({});
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (!user) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const frequentIngredients = [
     { label: 'Chicken', icon: <GiChickenOven /> },

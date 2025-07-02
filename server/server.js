@@ -28,6 +28,8 @@ connection.on('error', (err) => {
   console.error("MongoDB connection error:", err);
 });
 
+app.use(express.json());
+
 const usersRouter = require('./routes/users');
 const recipesRouter = require('./routes/recipes');
 

@@ -16,6 +16,7 @@ const auth = (req, res, next) => {
     req.user = verified.id;
     next();
   } catch (err) {
+    console.error('Authentication error:', err);
     res.status(500).json({ error: err.message });
   }
 };
