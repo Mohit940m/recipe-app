@@ -7,11 +7,20 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Use FRONTEND_URL for CORS
+// app.use(cors({
+//   origin: process.env.FRONTEND_URL,
+//   credentials: true
+// }));
+// app.use(express.json());
+
+
+// CORS config
+const allowedOrigins = ['https://recipe-app-i61u.vercel.app'];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
+  origin: allowedOrigins,
+  credentials: true // if using cookies or auth headers
 }));
-app.use(express.json());
 
 // Use MONGODB_URI for consistency
 const uri = process.env.MONGODB_URI || process.env.ATLAS_URI;
